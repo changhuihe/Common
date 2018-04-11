@@ -1,0 +1,110 @@
+* {
+	margin: 0; /* 外边距：上右下左  */
+	padding: 0; /* 内边距：上右下左  */
+}
+
+body {
+	font-family: "微软雅黑";
+	font-size: 16px;
+	background: url('../../img/loginImg/loginBackground.jpg') fixed center
+		center; /* fixed：背景图像固定 */
+}
+
+.login_box, .register_box {
+	width: 20%;
+	height: 490px;
+	padding: 35px;
+	color: #EEE;
+	position: absolute;
+	left: 50%;
+	top: 20%;
+	margin-left: -12%;
+}
+
+h3 {
+	text-align: center;
+	height: 10%;
+	font: 34px "microsoft yahei", Helvetica, Tahoma, Arial,
+		"Microsoft jhengHei", sans-serif;
+	color: #FFFFFF;
+	padding-bottom: 8%;
+}
+
+.input_outer {
+	height: 9.2%;
+	padding: 0 5px;
+	border-radius: 50px;
+	position: relative;
+	border: rgba(255, 255, 255, 0.2) 2px solid !important;
+}
+
+.user_input {
+	margin-bottom: 13%;
+}
+
+.password_input {
+	margin-bottom: 4%;
+}
+
+.user_ico {
+	width: 9%;
+	height: 55.5%;
+	background: url(../../img/loginImg/login_ico.png);
+	background-position: -125px 0; /* 设置或检索对象的背景图像位置 */
+	position: absolute;
+	margin: 3.5% 4%;
+	height: 55.5%;
+}
+
+.password_ico {
+	width: 9%;
+	height: 55.5%;
+	background-image: url(../../img/loginImg/login_ico.png);
+	background-position: -125px -34px; /* 设置或检索对象的背景图像位置 */
+	position: absolute;
+	margin: 3% 4%;
+}
+
+.text {
+	width: 75%;
+	outline: none;
+	display: inline-block;
+	font: 16px "microsoft yahei", Helvetica, Tahoma, Arial,
+		"Microsoft jhengHei";
+	margin-left: 50px;
+	border: none;
+	background: none;
+	line-height: 46px;
+	color: #FFFFFF !important;
+}
+
+.password_text {
+	position: absolute;
+	z-index: 100;
+}
+
+.checkbox {
+	vertical-align: middle;
+	margin: 0 2% 0 8.4%;
+}
+
+.login-fgetpwd {
+	float: right;
+	color: #FFFFFF;
+	text-decoration: none;
+	margin-right: 6%;
+}
+
+.user_input2, .email_input, .password_input2 {
+	margin-bottom: 8%;
+}
+
+.email_ico {
+	width: 9%;
+	height: 55.5%;
+	background: url(../../img/loginImg/login_ico.png);
+	background-position: -85px 0; /* 设置或检索对象的背景图像位置 */
+	position: absolute;
+	margin: 3.5% 4%;
+	height: 55.5%;
+}

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hch.sys.dao.RoleDao">
+
+	<resultMap id="RoleMap" type="com.hch.sys.entity.Role">
+		<!-- 继承字段 -->
+		<result property="id" column="id" />
+		<result property="deletedFlag" column="deleted_flag" />
+		<result property="checkedFlag" column="checked_flag" />
+		<result property="createDate" column="create_date" />
+		<result property="creator.id" column="creator_id" />
+		<result property="editorDate" column="editor_date" />
+		<result property="editor.id" column="editor_id" />
+		<result property="deleteDate" column="delete_date" />
+		<result property="deleteUser.id" column="delete_userId" />
+		<result property="checkDate" column="check_date" />
+		<result property="checker.id" column="checker_id" />
+		<!-- 基本字段 -->
+		<result property="role" column="role" />
+		<result property="description" column="description" />
+		<result property="available" column="available" />
+	</resultMap>
+
+	<select id="get" resultMap="RoleMap">
+		select * from sys_role where id=#{id}
+	</select>
+
+	<select id="findByRole" resultMap="RoleMap">
+		select * from sys_role where
+		role=#{role}
+	</select>
+	
+	<select id="findAll" resultMap="RoleMap">
+		select * from sys_role
+	</select>
+
+	<select id="findByDescription" resultMap="RoleMap">
+		select * from sys_role
+		where
+		description like concat('%',#{description},'%')
+	</select>
+
+	<select id="findRoleByUserId" resultMap="RoleMap">
+		select * from sys_role r 
+		left join sys_userRole ur on ur.user_id = #{userId}
+		where ur.role_id = r.id
+	</select>
+	
+	<insert id="distributionResouces">
+		insert into sys_roleResource(id,role_id,resource_id)
+		values
+		<foreach collection="resourceIds" item="resourceId" separator=",">
+			(UUID(),#{roleId},#{resourceId})
+		</foreach>
+	</insert>
+
+	<insert id="insert">
+		insert into sys_role(
+		id,
+		deleted_flag,
+		checked_flag,
+		create_date,
+		creator_id,
+		editor_date,
+		editor_id,
+		delete_date,
+		delete_userId,
+		check_date,
+		checker_id,
+		role,
+		description,
+		available
+		)values(
+		UUID(),
+		#{deletedFlag},
+		#{checkedFlag},
+		#{createDate},
+		#{creator.id},
+		#{editorDate},
+		#{editor.id},
+		#{deleteDate},
+		#{deleteUser.id},
+		#{checkDate},
+		#{checker.id},
+		#{role},
+		#{description},
+		#{available}
+		)
+	</insert>
+
+	<insert id="batchInsert">
+		insert into sys_role(
+		id,
+		deleted_flag,
+		checked_flag,
+		create_date,
+		creator_id,
+		editor_date,
+		editor_id,
+		delete_date,
+		delete_userId,
+		check_date,
+		checker_id,
+		role,
+		description,
+		available
+		)values
+		<foreach collection="entityList" item="role" separator=",">
+			(
+			UUID(),
+			#{role.deletedFlag},
+			#{role.checkedFlag},
+			#{role.createDate},
+			#{role.creator.id},
+			#{role.editorDate},
+			#{role.editor.id},
+			#{role.deleteDate},
+			#{role.deleteUser.id},
+			#{role.checkDate},
+			#{role.checker.id},
+			#{role.role},
+			#{role.description},
+			#{role.available}
+			)
+		</foreach>
+	</insert>
+
+</mapper>

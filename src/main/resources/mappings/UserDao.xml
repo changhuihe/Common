@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hch.sys.dao.UserDao">
+
+	<resultMap id="UserMap" type="com.hch.sys.entity.User">
+		<!-- 继承字段 -->
+		<result property="id" column="id" />
+		<result property="deletedFlag" column="deleted_flag" />
+		<result property="checkedFlag" column="checked_flag" />
+		<result property="createDate" column="create_date" />
+		<result property="creator.id" column="creator_id" />
+		<result property="editorDate" column="editor_date" />
+		<result property="editor.id" column="editor_id" />
+		<result property="deleteDate" column="delete_date" />
+		<result property="deleteUser.id" column="delete_userId" />
+		<result property="checkDate" column="check_date" />
+		<result property="checker.id" column="checker_id" />
+		<!-- 基本字段 -->
+		<result property="username" column="username" />
+		<result property="password" column="password" />
+		<result property="birthDate" column="birth_date" />
+		<result property="email" column="email" />
+		<result property="address" column="address" />
+		<result property="contactWay" column="contact_way" />
+		<result property="loginFlag" column="login_flag" />
+		<result property="errorCount" column="error_count" />
+		<result property="salt" column="salt" />
+	</resultMap>
+
+	<select id="get" resultMap="UserMap">
+		select * from sys_user where
+		id=#{id}
+	</select>
+	
+	<select id="findAll" resultMap="UserMap">
+		select * from sys_user
+	</select>
+
+	<select id="findByUsername" resultMap="UserMap">
+		select * from sys_user
+		where
+		username=#{username}
+	</select>
+
+	<insert id="distributionRoles">
+		insert into sys_userRole(id,user_id,role_id)
+		values
+		<foreach collection="roleIds" item="roleId" separator=",">
+			(UUID(),#{userId},#{roleId})
+		</foreach>
+	</insert>
+
+	<insert id="insert">
+		insert into sys_user(
+		id,
+		deleted_flag,
+		checked_flag,
+		create_date,
+		creator_id,
+		editor_date,
+		editor_id,
+		delete_date,
+		delete_userId,
+		check_date,
+		checker_id,
+		username,
+		password,
+		birth_date,
+		email,
+		address,
+		contact_way,
+		login_flag,
+		error_count,
+		salt
+		)values(
+		UUID(),
+		#{deletedFlag},
+		#{checkedFlag},
+		#{createDate},
+		#{creator.id},
+		#{editorDate},
+		#{editor.id},
+		#{deleteDate},
+		#{deleteUser.id},
+		#{checkDate},
+		#{checker.id},
+		#{username},
+		#{password},
+		#{birthDate},
+		#{email},
+		#{address},
+		#{contactWay},
+		#{loginFlag},
+		#{errorCount},
+		#{salt}
+		)
+	</insert>
+
+</mapper>

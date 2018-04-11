@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hch.sys.dao.ResourceDao">
+
+	<resultMap id="ResourceMap" type="com.hch.sys.entity.Resource">
+		<!-- 继承字段 -->
+		<result property="id" column="id" />
+		<result property="deletedFlag" column="deleted_flag" />
+		<result property="checkedFlag" column="checked_flag" />
+		<result property="createDate" column="create_date" />
+		<result property="creator.id" column="creator_id" />
+		<result property="editorDate" column="editor_date" />
+		<result property="editor.id" column="editor_id" />
+		<result property="deleteDate" column="delete_date" />
+		<result property="deleteUser.id" column="delete_userId" />
+		<result property="checkDate" column="check_date" />
+		<result property="checker.id" column="checker_id" />
+		<!-- 基本字段 -->
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="url" column="url" />
+		<result property="permission" column="permission" />
+		<result property="priority" column="priority" />
+		<result property="code" column="code"/>
+		<result property="parentCode" column="parent_code" />
+		<result property="available" column="available" />
+	</resultMap>
+
+	<select id="get" resultMap="ResourceMap">
+		select * from sys_resource where
+		id=#{id}
+	</select>
+	
+	<select id="findAll" resultMap="ResourceMap">
+		select * from sys_resource
+	</select>
+	
+	<select id="findResourceByRoleId" resultMap="ResourceMap" >
+		select * from sys_resource r
+		left join sys_roleresource rr on r.id = rr.resource_id
+		where rr.role_id = #{roleId} 
+	</select>
+
+	<insert id="insert">
+		insert into sys_resource(
+		id,
+		deleted_flag,
+		checked_flag,
+		create_date,
+		creator_id,
+		editor_date,
+		editor_id,
+		delete_date,
+		delete_userId,
+		check_date,
+		checker_id,
+		name,
+		type,
+		url,
+		permission,
+		priority,
+		code,
+		parent_code,
+		available
+		)values(
+		UUID(),
+		#{deletedFlag},
+		#{checkedFlag},
+		#{createDate},
+		#{creator.id},
+		#{editorDate},
+		#{editor.id},
+		#{deleteDate},
+		#{deleteUser.id},
+		#{checkDate},
+		#{checker.id},
+		#{name},
+		#{type},
+		#{url},
+		#{permission},
+		#{priority},
+		#{code},
+		#{parentCode},
+		#{available}
+		)
+	</insert>
+
+	<insert id="batchInsert">
+		insert into sys_resource(
+		id,
+		deleted_flag,
+		checked_flag,
+		create_date,
+		creator_id,
+		editor_date,
+		editor_id,
+		delete_date,
+		delete_userId,
+		check_date,
+		checker_id,
+		name,
+		type,
+		url,
+		permission,
+		priority,
+		code,
+		parent_code,
+		available
+		)values
+		<foreach collection="entityList" item="resource" separator=",">
+			(
+			UUID(),
+			#{resource.deletedFlag},
+			#{resource.checkedFlag},
+			#{resource.createDate},
+			#{resource.creator.id},
+			#{resource.editorDate},
+			#{resource.editor.id},
+			#{resource.deleteDate},
+			#{resource.deleteUser.id},
+			#{resource.checkDate},
+			#{resource.checker.id},
+			#{resource.name},
+			#{resource.type},
+			#{resource.url},
+			#{resource.permission},
+			#{resource.priority},
+			#{resource.code},
+			#{resource.parentCode},
+			#{resource.available}
+			)
+		</foreach>
+	</insert>
+
+</mapper>
