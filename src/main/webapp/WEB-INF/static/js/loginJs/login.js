@@ -194,7 +194,6 @@ function loginOnclick() {
 			if (data.flag) {
 				$("form").submit();
 			}
-
 		}
 	});
 

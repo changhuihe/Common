@@ -82,8 +82,6 @@
 	</servlet-mapping>
 
 	<!-- 解决访问不到静态资源问题 -->
-	<!-- <servlet-mapping>
-		<servlet-name>default</servlet-name>
-		<url-pattern>/static/*</url-pattern>
-	</servlet-mapping> -->
+	<!-- <servlet-mapping> <servlet-name>default</servlet-name> <url-pattern>/static/*</url-pattern> 
+		</servlet-mapping> -->
 </web-app>

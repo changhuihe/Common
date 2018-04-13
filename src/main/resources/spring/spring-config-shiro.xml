@@ -58,8 +58,11 @@
 		class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator" />
 
 	<!-- 会话Cookie模板 -->
+
 	<bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
-		<constructor-arg value="sid" />
+		<!-- 指定本系统SESSIONID, 默认为: JSESSIONID 问题: 与SERVLET容器名冲突, 如JETTY, TOMCAT 
+			等默认JSESSIONID, 当跳出SHIRO SERVLET时如ERROR-PAGE容器会为JSESSIONID重新分配值导致登录会话丢失! -->
+		<constructor-arg name="name" value="hch.session.id" />
 		<!-- 如果设置为true,则客户端不会暴露客户端脚本代码，使用HttpOnly cookie有助于减少某些类型的跨站点脚本高攻击 -->
 		<property name="httpOnly" value="true" />
 		<!-- 设置Cookie的过期时间，单位为秒，默认-1表示关闭浏览器时过期Cookie -->
@@ -160,8 +163,8 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<!-- 指定安全管理器 -->
 		<property name="securityManager" ref="securityManager" />
-		<!-- 没有登录的用户请求需要登录的页面时自动跳转到登录页面，不是必须的属性，不输入地址的话会自动寻找项目web项目的根目录下的”/login.jsp”页面 -->
-		<property name="loginUrl" value="/toLogin" />
+		<!-- 没有登录的用户请求需要登录的页面时自动跳转到登录页面(可根据项目的URL进行替换)，不是必须的属性，不输入地址的话会自动寻找项目web项目的根目录下的”/login.jsp”页面 -->
+		<property name="loginUrl" value="/sys/login" />
 		<!-- 登录成功默认跳转页面，不配置则跳转至”/” -->
 		<!-- <property name="successUrl" value="/list.jsp" /> -->
 		<!-- 没有权限默认跳转的页面 -->
@@ -176,9 +179,9 @@
 		<!-- 用于声明url和filter的关系，即ini配置中的[urls]部分 -->
 		<property name="filterChainDefinitions">
 			<value>
-				/login=authc
-				/logout=logout
-				/authenticated=authc
+				/sys/login=authc
+				/sys/logout=logout
+				/sys/authenticated=authc
 				/static/**=anon
 				/**=user,sysUser
 			</value>

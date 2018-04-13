@@ -48,7 +48,7 @@ public class RoleTest extends BaseTest {
 		roleService.batchInsert(list);
 	}
 
-	//@Test
+	@Test
 	public void distributionResouces() {
 		Role role = roleService.findByRole("superAdmin");
 		List<Resource> resourceList = resourceService.findAll();
@@ -58,8 +58,8 @@ public class RoleTest extends BaseTest {
 		}
 		roleService.distributionResouces(role.getId(), resourceIds);
 	}
-	
-	@Test
+
+	// @Test
 	public void find() {
 		System.out.println(roleService.get("c0c361de-3c06-11e8-8fda-208984e4020a"));
 		System.out.println(roleService.findByRole("admin"));

@@ -8,12 +8,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/*
- * 登录controller,shiro拦截器会拦截请求，如果没有登录将
- */
 @Controller
+@RequestMapping(value = "/sys")
 public class LoginController {
 
+	/*
+	 * 首次进入项目时，shiro拦截器会拦截没有登录用户，此时跳转到登录界面。登录失败时也会进入此方法
+	 */
 	@RequestMapping(value = "/login")
 	public String showLoginForm(HttpServletRequest req, Model model) {
 		String exceptionClassName = (String) req.getAttribute("shiroLoginFailure");
@@ -28,13 +29,4 @@ public class LoginController {
 		model.addAttribute("error", error);
 		return "login/login";
 	}
-
-	/*
-	 * 首次访问请求跳转到登录界面
-	 */
-	@RequestMapping(value = "/toLogin")
-	public String firstLogin(HttpServletRequest req, Model model) {
-		return "login/login";
-	}
-
 }

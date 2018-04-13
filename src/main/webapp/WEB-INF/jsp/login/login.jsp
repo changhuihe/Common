@@ -12,7 +12,7 @@
 <body>
 	<div class="login_box">
 		<h3>Personal space</h3>
-		<form action="${path}/login" method="post" autocomplete="off">
+		<form action="" method="post" autocomplete="off" onsubmit="return loginOnclick();">
 			<div class="input_outer user_input">
 				<span class="user_ico"></span> <input name="username"
 					id="nameOremail" class="text" placeholder="输入用户名或邮箱登录" type="text" />

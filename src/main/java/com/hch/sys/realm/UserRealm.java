@@ -24,7 +24,6 @@ public class UserRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		String username = (String) principals.getPrimaryPrincipal();
-
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 		authorizationInfo.setRoles(userService.findRoles(username));
 		authorizationInfo.setStringPermissions(userService.findPermissions(username));
@@ -33,20 +32,14 @@ public class UserRealm extends AuthorizingRealm {
 
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
-
 		String username = (String) token.getPrincipal();
-
 		User user = userService.findByUsername(username);
-
 		if (user == null) {
 			throw new UnknownAccountException();// 没找到帐号
 		}
-
 		if (Boolean.FALSE.equals(user.getLoginFlag())) {
 			throw new LockedAccountException(); // 帐号锁定
 		}
-
-		// 交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
 		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUsername(), // 用户名
 				user.getPassword(), // 密码
 				ByteSource.Util.bytes(user.getCredentialsSalt()), // salt=username+salt

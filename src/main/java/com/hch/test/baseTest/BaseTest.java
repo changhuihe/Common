@@ -11,7 +11,6 @@ public abstract class BaseTest {
 	public ApplicationContext ac = null;
 
 	public BaseTest() {
-		ac = (ApplicationContext) new ClassPathXmlApplicationContext(
-				new String[] { "spring-config.xml", "spring-mvc.xml" });
+		ac = (ApplicationContext) new ClassPathXmlApplicationContext(new String[] { "spring/spring-config.xml" });
 	}
 }
